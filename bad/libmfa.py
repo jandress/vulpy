@@ -9,6 +9,7 @@ def mfa_is_enabled(username):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
+    # Paolo: SQLi
     user = c.execute("SELECT * FROM users WHERE username = ? and mfa_enabled = 1", (username, )).fetchone()
 
     if user:
@@ -24,6 +25,7 @@ def mfa_disable(username):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
+    # Paolo: SQLi
     c.execute("UPDATE users SET mfa_enabled = 0 WHERE username = ?", (username,))
     conn.commit()
 
@@ -39,6 +41,7 @@ def mfa_enable(username):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
+    # Paolo: SQLi
     #c.execute("UPDATE users SET mfa = ? WHERE username = ?", (secret, username,))
     c.execute("UPDATE users SET mfa_enabled = 1 WHERE username = ?", (username,))
     conn.commit()
@@ -73,6 +76,7 @@ def mfa_reset_secret(username):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
+    # Paolo: SQLi
     #c.execute("UPDATE users SET mfa = ? WHERE username = ?", (secret, username,))
     #user = c.execute("SELECT * FROM users WHERE username = ?", (username, )).fetchone()
     c.execute("UPDATE users SET mfa_secret = ? WHERE username = ?", (secret, username))

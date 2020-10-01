@@ -15,6 +15,7 @@ def db_init():
     c.execute("DROP TABLE users")
     c.execute("CREATE TABLE users (user text, password text, failures int)")
 
+    # Paolo: SQLi
     for u,p in users:
         c.execute("INSERT INTO users (user, password, failures) VALUES ('%s', '%s', '%d')" %(u, p, 0))
 

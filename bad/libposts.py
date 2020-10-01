@@ -11,6 +11,7 @@ def get_posts(username):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
+    # Paolo: SQLi
     rows = c.execute("SELECT * FROM posts WHERE username = ? ORDER BY date DESC", (username,)).fetchall()
 
     posts = [ dict(zip(row.keys(), row)) for row in rows ]
@@ -25,6 +26,7 @@ def post(username, text):
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
 
+    # Paolo: SQLi
     rows = c.execute("INSERT INTO posts (username, text, date) VALUES (?, ?, DateTime('now'))", (username, text)) #WHERE username = ?", (username,)).fetchall()
     conn.commit()
 
